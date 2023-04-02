@@ -24,7 +24,7 @@ const AddExpenseForm: NextPage = () => {
     <span>Notes</span>
     <input type="text" placeholder="Notes" className="input input-bordered" />
   </label>
-  <button className="btn btn-success">+</button>
+  <button className="btn btn-active">+</button>
 </div>
   );
 }

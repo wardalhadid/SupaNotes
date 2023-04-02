@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import Navbar from "../components/Nav";
 import AddExpenseForm from "../components/AddExpenseForm";
 import Expenses from "~/components/Expenses";
+import EditExpense from "~/components/EditExpense";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Record and keep track of your expenses" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <EditExpense />
       <main>
         <Navbar />
         <AddExpenseForm />

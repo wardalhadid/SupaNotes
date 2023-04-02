@@ -7,7 +7,7 @@ export default {
   },
   daisyui: {
     themes: [
-      "winter",
+      "light",
     ],
   },
   plugins: [require("daisyui")],
