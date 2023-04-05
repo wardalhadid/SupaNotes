@@ -1,15 +1,23 @@
 import Image from "next/image";
 import type { NextPage } from "next";
 import Link from "next/link";
+import AddNoteForm from "./AddNoteForm";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 
 const Navbar: NextPage = () => {
+  const { user } = useUser();
   return (
-    <div className="navbar bg-base-100 mb-6">
+    <div className="navbar mb-6 gap-4 bg-base-100">
       <div className="flex-1">
-        <Link className="btn-ghost btn text-xl normal-case" href={"#"}>
-          Expensesify
+        <Link className="btn-ghost btn text-xl normal-case bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500" href={"#"}>
+          SupaNotes
         </Link>
       </div>
+      <select className="select border-hidden">
+        <option>Date</option>
+        <option>A-Z</option>  
+      </select>
+      <AddNoteForm />
       <div className="flex-none gap-2">
         <div className="form-control">
           <input
@@ -22,7 +30,7 @@ const Navbar: NextPage = () => {
           <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
             <div className="w-10 rounded-full">
               <Image
-                src="/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src={user ? user.profileImageUrl : "https://static.zooniverse.org/www.zooniverse.org/assets/simple-avatar.png"}
                 alt="profile picture"
                 width={100}
                 height={100}
@@ -34,18 +42,13 @@ const Navbar: NextPage = () => {
             className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
           >
             <li>
-              <Link className="justify-between" href={"#"}>
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link href={"#"}>Logout</Link>
+              <SignOutButton>Logout</SignOutButton>
             </li>
           </ul>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;

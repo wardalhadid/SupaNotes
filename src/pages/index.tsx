@@ -1,53 +1,42 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "~/utils/api";
 import Navbar from "../components/Nav";
-import AddExpenseForm from "../components/AddExpenseForm";
-import Expenses from "~/components/Expenses";
-import EditExpense from "~/components/EditExpense";
+import Notes from "~/components/Notes";
+import EditNote from "~/components/EditNote";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const { user } = useUser();
+  const ctx = api.useContext();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+
+  if (!userLoaded || !isSignedIn || !user) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-6">
+        <label className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-6xl normal-case text-transparent">
+          SupaNotes
+        </label>
+        <span className="btn-accent btn-wide btn-lg btn hover:cursor-pointer">
+          <SignInButton />{" "}
+        </span>
+      </div>
+    );
+  }
   return (
     <>
       <Head>
-        <title>Expensesify</title>
-        <meta name="description" content="Record and keep track of your expenses" />
+        <title>SupaNotes</title>
+        <meta name="description" content="Note taking app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <EditExpense />
+      <EditNote />
       <main>
         <Navbar />
-        <AddExpenseForm />
-        <Expenses />
+        <Notes />
       </main>
     </>
   );
 };
 
 export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
