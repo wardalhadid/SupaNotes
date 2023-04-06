@@ -1,7 +1,4 @@
 import { z } from "zod";
-import clerkClient from "@clerk/clerk-sdk-node";
-import type {User} from "@clerk/nextjs/dist/api";
-import { TRPCError } from "@trpc/server";
 
 import {
   createTRPCRouter,
@@ -11,9 +8,10 @@ import {
 
 export const notesRouter = createTRPCRouter({
   getNotes: publicProcedure.query(async ({ ctx }) => {
-    const notes = await ctx.prisma.Notes.findMany({
+    const userId = ctx.userId || "";
+    const notes = await ctx.prisma.notes.findMany({
       where: {
-        userId: ctx.userId,
+        userId,
       },
       take: 100,
       orderBy: [{ createdAt: "desc" }]
@@ -21,7 +19,7 @@ export const notesRouter = createTRPCRouter({
     return notes;
   }),
   addNotes: protectedProcedure.input(z.object({title: z.string(), note: z.string()})).mutation(async ({ ctx, input}) => {
-    const noteAdded = await ctx.prisma.Notes.create({
+    const noteAdded = await ctx.prisma.notes.create({
       data: {
         title: input.title,
         note: input.note,
@@ -30,4 +28,24 @@ export const notesRouter = createTRPCRouter({
     });
     return noteAdded;
   }),
+  deleteNote: protectedProcedure.input(z.object({id: z.string()})).mutation(async ({ ctx, input}) => {
+    const deletedNote = await ctx.prisma.notes.delete({
+      where: {
+        id: input.id,
+      }
+    });
+    return deletedNote;
+  }),
+  editNote: protectedProcedure.input(z.object({id: z.string(), title: z.string(), note: z.string()})).mutation(async ({ ctx, input}) => {
+    const editedNote = await ctx.prisma.notes.update({
+      where: {
+        id: input.id,
+      },
+    data: {
+      title: input.title,
+      note: input.note,
+    },
+   });
+    return editedNote;
+  })
 });

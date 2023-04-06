@@ -4,10 +4,11 @@ import Navbar from "../components/Nav";
 import Notes from "~/components/Notes";
 import EditNote from "~/components/EditNote";
 import { SignInButton, useUser } from "@clerk/nextjs";
+import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
-
+  api.notes.getNotes.useQuery();
   if (!userLoaded || !isSignedIn ) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center gap-6">

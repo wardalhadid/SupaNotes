@@ -22,8 +22,8 @@ const AddNoteForm: NextPage = () => {
   });
 
   return (
-    <div className="flex justify-center">
-      <label htmlFor="my-modal-6" className="btn">
+    <div className="flex justify-center p-1">
+      <label htmlFor="my-modal-6" className="btn btn-primary">
         Add Note
       </label>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
