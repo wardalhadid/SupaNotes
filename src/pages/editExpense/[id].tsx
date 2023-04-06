@@ -11,7 +11,7 @@ const EditExpense: NextPage = () => {
   const { id, title, note } = router.query;
   const { mutate } = api.notes.deleteNote.useMutation({
     onSuccess: () => {
-      void utils.notes.all.invalidate();
+      void utils.notes.deleteNote.invalidate();
     },
   });
   const [titleInput, setTitle] = useState(title || "");
