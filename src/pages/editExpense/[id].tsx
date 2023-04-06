@@ -11,14 +11,14 @@ const EditExpense: NextPage = () => {
   const { id, title, note } = router.query;
   const { mutate } = api.notes.deleteNote.useMutation({
     onSuccess: () => {
-      void utils.notes.deleteNote.invalidate();
+      void utils.notes.getNotes.invalidate();
     },
   });
   const [titleInput, setTitle] = useState(title || "");
   const [noteInput, setNote] = useState(note || "");
   const {mutate: edit} = api.notes.editNote.useMutation({
     onSuccess: () => {
-      void utils.notes.editNote.invalidate();
+      void utils.notes.getNotes.invalidate();
     },
   });
   return (
