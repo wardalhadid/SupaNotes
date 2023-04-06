@@ -21,6 +21,10 @@ const EditExpense: NextPage = () => {
       void utils.notes.getNotes.invalidate();
     },
   });
+   if (typeof id !== "string") return <div> error</div>
+   if (typeof titleInput !== "string") return <div> error</div>
+   if (typeof noteInput !== "string") return <div> error</div>
+   
   return (
     <div className="flex h-screen w-full flex-col gap-4 p-6">
       <Link

@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Navbar from "../components/Nav";
 import Notes from "~/components/Notes";
-import EditNote from "~/components/EditNote";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 
@@ -28,7 +27,6 @@ const Home: NextPage = () => {
         <meta name="description" content="Note taking app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <EditNote />
       <main>
         <Navbar />
         <Notes />
