@@ -45,7 +45,7 @@ const EditExpense: NextPage = () => {
         onChange={(e) => setNote(e.target.value)}
       ></textarea>
       <div className="mx-auto flex justify-center gap-4 p-8 ">
-        <a href="/">
+        <Link href="/">
           <button
             className="btn-xl btn-primary btn"
             onClick={() => {
@@ -54,8 +54,8 @@ const EditExpense: NextPage = () => {
           >
             Save
           </button>
-        </a>
-        <a href="/">
+        </Link>
+        <Link href="/">
           <button
             className="btn-outline btn-xl btn-error btn"
             onClick={() => {
@@ -64,7 +64,7 @@ const EditExpense: NextPage = () => {
           >
             Delete
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );
