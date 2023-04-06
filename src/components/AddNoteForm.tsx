@@ -5,10 +5,10 @@ import { toast } from "react-hot-toast";
 
 const AddNoteForm: NextPage = () => {
   const ctx = api.useContext();
-  const [input, setInput] = useState({ title: "", note: ""});
-  const { mutate, isLoading: isPosting } = api.notes.addNotes.useMutation({
+  const [input, setInput] = useState({ title: "", note: "" });
+  const { mutate } = api.notes.addNotes.useMutation({
     onSuccess: () => {
-      setInput({ title: "", note: ""});
+      setInput({ title: "", note: "" });
       void ctx.notes.getNotes.invalidate();
     },
     onError: (e) => {
@@ -20,7 +20,6 @@ const AddNoteForm: NextPage = () => {
       }
     },
   });
-  console.log(input);
 
   return (
     <div className="flex justify-center">
@@ -42,17 +41,21 @@ const AddNoteForm: NextPage = () => {
             <input
               type="text"
               className="input-bordered input"
-              onChange={(e) => setInput({...input, title: e.target.value })}
+              onChange={(e) => setInput({ ...input, title: e.target.value })}
             />
           </label>
           <label className="label">
             <textarea
               placeholder="note"
               className="textarea-bordered textarea textarea-lg w-full"
-              onChange={(e) => setInput({...input, note: e.target.value })}
+              onChange={(e) => setInput({ ...input, note: e.target.value })}
             ></textarea>
           </label>
-          <label htmlFor="my-modal-6" className="btn-outline btn-wide btn mt-2 w-full" onClick= {() => mutate(input)}>
+          <label
+            htmlFor="my-modal-6"
+            className="btn-outline btn-wide btn mt-2 w-full"
+            onClick={() => mutate(input)}
+          >
             Add
           </label>
         </div>

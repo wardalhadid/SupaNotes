@@ -13,19 +13,8 @@ const Navbar: NextPage = () => {
           SupaNotes
         </Link>
       </div>
-      <select className="select border-hidden">
-        <option>Date</option>
-        <option>A-Z</option>  
-      </select>
       <AddNoteForm />
       <div className="flex-none gap-2">
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input-bordered input"
-          />
-        </div>
         <div className="dropdown-end dropdown">
           <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
             <div className="w-10 rounded-full">

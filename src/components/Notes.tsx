@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import { api } from "~/utils/api";
+import { type RouterOutputs } from "~/utils/api";
+
 
 const Notes: NextPage = () => {
-  const { data } = api.notes.getNotes.useQuery();
-
+  type Data = RouterOutputs["notes"]["getNotes"][number];
+  const { data }: Data = api.notes.getNotes.useQuery();
   if (!data) return <div>404</div>;
-
   return (
     <div className="mt-6 flex flex-wrap justify-center gap-3">
       {data.map((note) => (
